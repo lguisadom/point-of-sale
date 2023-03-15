@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: point-of-sale
+  datasource:
+    url: jdbc:mysql://localhost:3306/db_pos
+    username: root
+    password: mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL57Dialect
+    hibernate:
+      ddl-auto: create
+      
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: debug
+        
+server:
+  port: 8081

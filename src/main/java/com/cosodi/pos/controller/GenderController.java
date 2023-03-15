@@ -36,9 +36,7 @@ public class GenderController {
 		try {
 			List<GenderDto> listGenderDto = genderService.findAll()
 				.stream()
-				.map(gender -> {
-					return convertToDto(gender);
-				})
+				.map(this::convertToDto)
 				.collect(Collectors.toList());
 			return ResponseEntity.ok(listGenderDto);
 		} catch (Exception e) {

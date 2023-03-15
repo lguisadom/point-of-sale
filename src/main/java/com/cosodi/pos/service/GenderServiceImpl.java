@@ -1,7 +1,6 @@
 package com.cosodi.pos.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,12 +23,8 @@ public class GenderServiceImpl implements IGenderService {
 
 	@Override
 	public Gender findById(Integer id) {
-		Optional<Gender> optionalGender = genderRepository.findById(id);
-		if (optionalGender.isEmpty()) {
-			throw new EntityNotFoundException();
-		}
-		
-		return optionalGender.get();
+		return genderRepository.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException());
 	}
 
 	@Override
@@ -38,25 +33,18 @@ public class GenderServiceImpl implements IGenderService {
 	}
 
 	@Override
-	public Gender update(Integer id, Gender gender) {
-		Optional<Gender> optionalGender = genderRepository.findById(id);
-		if (optionalGender.isEmpty()) {
-			throw new EntityNotFoundException();
-		}
-		
-		Gender genderDB = optionalGender.get();
+	public Gender update(Integer id, Gender gender) {		
+		Gender genderDB = genderRepository.findById(id)
+				.orElseThrow(() -> new EntityNotFoundException());
 		genderDB.setName(gender.getName());
 		return genderRepository.save(genderDB);
 	}
 
 	@Override
 	public void deleteById(Integer id) {
-		Optional<Gender> optionalGender = genderRepository.findById(id);
-		if (optionalGender.isEmpty()) {
-			throw new EntityNotFoundException();
-		}
-		
-		genderRepository.deleteById(id);
+		Gender genderDB = genderRepository.findById(id)
+			.orElseThrow(() -> new EntityNotFoundException());
+		genderRepository.delete(genderDB);
 	}
 
 }

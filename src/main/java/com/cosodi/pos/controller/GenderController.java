@@ -3,6 +3,7 @@ package com.cosodi.pos.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,10 @@ import jakarta.persistence.EntityNotFoundException;
 @RestController
 @RequestMapping("/api/v1/gender")
 public class GenderController {
+	
+	@Autowired
+	private ModelMapper modelMapper;
+	
 	@Autowired
 	private IGenderService genderService;
 
@@ -102,16 +107,12 @@ public class GenderController {
 	}
 	
 	private GenderDto convertToDto(Gender gender) {
-		 GenderDto genderDto = new GenderDto();
-		 genderDto.setId(gender.getId());
-		 genderDto.setName(gender.getName());
+		 GenderDto genderDto = modelMapper.map(gender, GenderDto.class);
 		 return genderDto;
 	}
 	
 	private Gender convertToEntity(GenderDto genderDto) {
-		Gender gender = new Gender();
-		gender.setName(genderDto.getName());
-		
+		Gender gender = modelMapper.map(genderDto, Gender.class);
 		if (genderDto.getId() != null) {
 			gender.setId(genderDto.getId());
 		}

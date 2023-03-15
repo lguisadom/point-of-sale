@@ -48,7 +48,9 @@ public class GenderController {
 	@GetMapping("/{id}")
 	public ResponseEntity<?> findById(@PathVariable("id") Integer id) {
 		try {
-			return ResponseEntity.ok(genderService.findById(id));
+			Gender gender = genderService.findById(id);
+			GenderDto genderDto = this.convertToDto(gender);
+			return ResponseEntity.ok(genderDto);
 		} catch (EntityNotFoundException e) {
 			LOGGER.error(e.getMessage(), e);
 			return ResponseEntity.notFound().build();
@@ -59,9 +61,11 @@ public class GenderController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<?> save(@RequestBody Gender gender) {
+	public ResponseEntity<?> save(@RequestBody GenderDto genderDto) {
 		try {
-			return ResponseEntity.status(HttpStatus.CREATED).body(genderService.save(gender));
+			Gender gender = this.convertToEntity(genderDto);
+			Gender genderCreated = genderService.save(gender);
+			return ResponseEntity.status(HttpStatus.CREATED).body(this.convertToDto(genderCreated));
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage(), e);
 			return ResponseEntity.internalServerError().build();
@@ -69,9 +73,11 @@ public class GenderController {
 	}
 	
 	@PutMapping("/{id}")
-	public ResponseEntity<?> update(@PathVariable("id") Integer id, @RequestBody Gender gender) {
+	public ResponseEntity<?> update(@PathVariable("id") Integer id, @RequestBody GenderDto genderDto) {
 		try {
-			return ResponseEntity.status(HttpStatus.OK).body(genderService.update(id, gender));
+			Gender gender = this.convertToEntity(genderDto);
+			Gender genderUpdated = genderService.update(id, gender);
+			return ResponseEntity.status(HttpStatus.OK).body(this.convertToDto(genderUpdated));
 		} catch (EntityNotFoundException e) {
 			LOGGER.error(e.getMessage(), e);
 			return ResponseEntity.notFound().build();

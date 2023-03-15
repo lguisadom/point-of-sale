@@ -1,5 +1,8 @@
 package com.cosodi.pos.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cosodi.pos.dto.GenderDto;
 import com.cosodi.pos.entity.Gender;
 import com.cosodi.pos.service.IGenderService;
 
@@ -30,7 +34,13 @@ public class GenderController {
 	@GetMapping
 	public ResponseEntity<?> findAll() {
 		try {
-			return ResponseEntity.ok(genderService.findAll());
+			List<GenderDto> listGenderDto = genderService.findAll()
+				.stream()
+				.map(gender -> {
+					return convertToDto(gender);
+				})
+				.collect(Collectors.toList());
+			return ResponseEntity.ok(listGenderDto);
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage(), e);
 			return ResponseEntity.internalServerError().build();
@@ -85,5 +95,23 @@ public class GenderController {
 			LOGGER.error(e.getMessage(), e);
 			return ResponseEntity.internalServerError().build();
 		}		
+	}
+	
+	private GenderDto convertToDto(Gender gender) {
+		 GenderDto genderDto = new GenderDto();
+		 genderDto.setId(gender.getId());
+		 genderDto.setName(gender.getName());
+		 return genderDto;
+	}
+	
+	private Gender convertToEntity(GenderDto genderDto) {
+		Gender gender = new Gender();
+		gender.setName(genderDto.getName());
+		
+		if (genderDto.getId() != null) {
+			gender.setId(genderDto.getId());
+		}
+		
+		return gender;
 	}
 }

@@ -4,6 +4,7 @@ import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,74 +16,77 @@ import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
-@Table
+@Table(name = "customers")
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Customer {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@EqualsAndHashCode.Include
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name = "document_type_id")
+	@JoinColumn(name = "document_type_id", nullable = false, foreignKey = @ForeignKey(name = "FK_CUSTOMER_DOCUMENT_TYPE"))
 	private DocumentType documentType;
 	
-	@Column(name = "document_number", unique = true)
+	@Column(name = "document_number", unique = true, length = 11, nullable = false)
 	private String documentNumber;
 	
 	@ManyToOne
-	@JoinColumn(name = "person_type_id")
+	@JoinColumn(name = "person_type_id", nullable = false, foreignKey = @ForeignKey(name = "FK_CUSTOMER_PERSON_TYPE"))
 	private PersonType personType;	
 	
-	@Column(nullable = true)
+	@Column(nullable = true, length = 50)
 	private String firstname;
 	
-	@Column(nullable = true)
+	@Column(nullable = true, length = 50)
 	private String middlename;
 	
-	@Column(nullable = true)
+	@Column(nullable = true, length = 50)
 	private String lastname;
 	
-	@Column(nullable = true)
+	@Column(nullable = true, length = 50)
 	private String surname;
 	
-	@Column(name = "social_reason", nullable = true)
+	@Column(name = "social_reason", nullable = true, length = 100)
 	private String socialReason;
 	
-	@Column(name = "commercial_name", nullable = true)
+	@Column(name = "commercial_name", nullable = true, length = 100)
 	private String commercialName;
 	
-	@Column(nullable = true)
+	@Column(name="birth_date", nullable = true)
 	@Temporal(TemporalType.DATE)
 	private Date birthdate;
 	
-	@Column(nullable = true)
+	@Column(nullable = false, length = 255)
 	private String address;
-	
-	@Column(nullable = true)
+
+	@Column(name = "phone_number", nullable = true, length = 100)
 	private String phoneNumber;
 	
-	@Column(nullable = false, unique = true)
+	@Column(nullable = false, unique = true, length = 100)
 	private String email;
 	
 	@ManyToOne
-	@JoinColumn(name = "gender_id")
+	@JoinColumn(name = "gender_id", nullable = false, foreignKey = @ForeignKey(name = "FK_CUSTOMER_GENDER"))
 	private Gender gender;
 	
 	@ManyToOne
-	@JoinColumn(name = "department_id")
+	@JoinColumn(name = "department_id", nullable = false, foreignKey = @ForeignKey(name = "FK_CUSTOMER_DEPARTMENT"))
 	private Department department;
 	
 	@ManyToOne
-	@JoinColumn(name = "province_id")
+	@JoinColumn(name = "province_id", nullable = false, foreignKey = @ForeignKey(name = "FK_CUSTOMER_PROVINCE"))
 	private Province province;
 	
 	@ManyToOne
-	@JoinColumn(name = "district_id")
+	@JoinColumn(name = "district_id", nullable = false, foreignKey = @ForeignKey(name = "FK_CUSTOMER_DISTRICT"))
 	private District district;
 	
 	@Column(name = "registration_date", nullable = false)

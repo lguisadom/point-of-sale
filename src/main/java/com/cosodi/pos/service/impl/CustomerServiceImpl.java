@@ -1,8 +1,9 @@
-package com.cosodi.pos.service;
+package com.cosodi.pos.service.impl;
 
 import java.util.List;
 import java.util.Optional;
 
+import com.cosodi.pos.service.ICustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,13 +17,13 @@ import com.cosodi.pos.entity.DocumentType;
 import com.cosodi.pos.entity.Gender;
 import com.cosodi.pos.entity.PersonType;
 import com.cosodi.pos.entity.Province;
-import com.cosodi.pos.repository.CustomerRepository;
+import com.cosodi.pos.repository.ICustomerRepository;
 
 @Service
 public class CustomerServiceImpl implements ICustomerService {
 
 	@Autowired
-	private CustomerRepository customerRepository;
+	private ICustomerRepository customerRepository;
 
 	@Override
 	@Transactional(readOnly = true)

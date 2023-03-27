@@ -1,12 +1,13 @@
-package com.cosodi.pos.service;
+package com.cosodi.pos.service.impl;
 
 import java.util.List;
 
+import com.cosodi.pos.service.IGenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.cosodi.pos.entity.Gender;
-import com.cosodi.pos.repository.GenderRepository;
+import com.cosodi.pos.repository.IGenderRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -14,7 +15,7 @@ import jakarta.persistence.EntityNotFoundException;
 public class GenderServiceImpl implements IGenderService {
 
 	@Autowired
-	private GenderRepository genderRepository;
+	private IGenderRepository genderRepository;
 	
 	@Override
 	public List<Gender> findAll() {

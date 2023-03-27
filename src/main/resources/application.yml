@@ -10,7 +10,7 @@ spring:
     database-platform: org.hibernate.dialect.MySQL57Dialect
     hibernate:
       ddl-auto: create
-      
+    open-in-view: false
 logging:
   level:
     org:
@@ -19,3 +19,6 @@ logging:
         
 server:
   port: 8081
+
+#Warning
+#spring.jpa.properties.jakarta.persistence.sharedCache.mode=ALL

@@ -21,7 +21,7 @@ import com.cosodi.pos.entity.Customer;
 import com.cosodi.pos.service.ICustomerService;
 
 @RestController
-@RequestMapping("/api/v1/customer")
+@RequestMapping("/api/v1/customers")
 public class CustomerController {
 	@Autowired
 	private ICustomerService customerService;

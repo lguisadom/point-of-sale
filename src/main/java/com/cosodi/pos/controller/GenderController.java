@@ -25,7 +25,7 @@ import com.cosodi.pos.service.IGenderService;
 import jakarta.persistence.EntityNotFoundException;
 
 @RestController
-@RequestMapping("/api/v1/gender")
+@RequestMapping("/api/v1/genders")
 public class GenderController {
 	
 	@Autowired
@@ -52,17 +52,9 @@ public class GenderController {
 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> findById(@PathVariable("id") Integer id) {
-		try {
-			Gender gender = genderService.findById(id);
-			GenderDto genderDto = this.convertToDto(gender);
-			return ResponseEntity.ok(genderDto);
-		} catch (EntityNotFoundException e) {
-			LOGGER.error(e.getMessage(), e);
-			return ResponseEntity.notFound().build();
-		} catch (Exception e) {
-			LOGGER.error(e.getMessage(), e);
-			return ResponseEntity.internalServerError().build();
-		}
+		Gender gender = genderService.findById(id);
+		GenderDto genderDto = this.convertToDto(gender);
+		return ResponseEntity.ok(genderDto);
 	}
 	
 	@PostMapping
@@ -79,17 +71,9 @@ public class GenderController {
 	
 	@PutMapping("/{id}")
 	public ResponseEntity<?> update(@PathVariable("id") Integer id, @RequestBody GenderDto genderDto) {
-		try {
-			Gender gender = this.convertToEntity(genderDto);
-			Gender genderUpdated = genderService.update(id, gender);
-			return ResponseEntity.status(HttpStatus.OK).body(this.convertToDto(genderUpdated));
-		} catch (EntityNotFoundException e) {
-			LOGGER.error(e.getMessage(), e);
-			return ResponseEntity.notFound().build();
-		} catch (Exception e) {
-			LOGGER.error(e.getMessage(), e);
-			return ResponseEntity.internalServerError().build();
-		}
+		Gender gender = this.convertToEntity(genderDto);
+		Gender genderUpdated = genderService.update(id, gender);
+		return ResponseEntity.status(HttpStatus.OK).body(this.convertToDto(genderUpdated));
 	}
 	
 	@DeleteMapping("/{id}")

@@ -18,7 +18,7 @@ logging:
         SQL: debug
         
 server:
-  port: 8081
+  port: 8082
 
 #Warning
 #spring.jpa.properties.jakarta.persistence.sharedCache.mode=ALL

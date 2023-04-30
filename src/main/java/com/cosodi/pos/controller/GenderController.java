@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -62,7 +63,7 @@ public class GenderController {
 	}
 
 	@PostMapping
-	public ResponseEntity<Void> save(@RequestBody GenderDTO genderDTO) {
+	public ResponseEntity<Void> save(@Valid @RequestBody GenderDTO genderDTO) {
 			Gender createdGender = iGenderService.save(this.convertToEntity(genderDTO));
 			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdGender.getId()).toUri();
 			return ResponseEntity.created(location).build();
@@ -70,7 +71,7 @@ public class GenderController {
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<GenderDTO> update(@PathVariable("id") Integer id, @RequestBody GenderDTO genderDTO) {
+	public ResponseEntity<GenderDTO> update(@PathVariable("id") Integer id, @Valid @RequestBody GenderDTO genderDTO) {
 		genderDTO.setId(id);
 		Gender updatedGender = iGenderService.update(this.convertToEntity(genderDTO), id);
 		// return ResponseEntity.status(HttpStatus.OK).body(this.convertToDto(updatedGender));

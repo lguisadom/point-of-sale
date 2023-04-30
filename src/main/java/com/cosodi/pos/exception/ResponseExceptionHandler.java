@@ -29,12 +29,12 @@ public class ResponseExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(customerErrorResponse, HttpStatus.NOT_FOUND);
     }
 
-    /*@Override
+    @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatusCode status, WebRequest request) {
         String message = ex.getBindingResult().getAllErrors().stream().map(
                 e -> e.getCode().concat(":").concat(e.getDefaultMessage())
         ).collect(Collectors.joining());
         CustomerErrorResponse customerErrorResponse = new CustomerErrorResponse(LocalDateTime.now(), message, request.getDescription(false));
         return new ResponseEntity<>(customerErrorResponse, HttpStatus.BAD_REQUEST);
-    }*/
+    }
 }

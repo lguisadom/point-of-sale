@@ -1,5 +1,6 @@
 package com.cosodi.pos.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import java.util.stream.Collectors;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import com.cosodi.pos.dto.CustomerDTO;
 import com.cosodi.pos.entity.Customer;
 import com.cosodi.pos.service.ICustomerService;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/api/v1/customers")
@@ -45,8 +47,9 @@ public class CustomerController {
 	
 	@PostMapping
 	public ResponseEntity<CustomerDTO> save(@Valid @RequestBody CustomerDTO customerDTO) {
-		return new ResponseEntity<>(this.convertToDTO(
-				this.iCustomerService.save(this.convertToEntity(customerDTO))), HttpStatus.CREATED);
+		Customer createdCustomer = this.iCustomerService.save(this.convertToEntity(customerDTO));
+		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdCustomer.getId()).toUri();
+		return ResponseEntity.created(location).build();
 	}
 
 	@PutMapping("/{id}")

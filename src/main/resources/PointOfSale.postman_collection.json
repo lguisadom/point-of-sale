@@ -167,7 +167,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8082/api/v1/customers/3",
+							"raw": "http://localhost:8082/api/v1/customers/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -177,7 +177,7 @@
 								"api",
 								"v1",
 								"customers",
-								"3"
+								"1"
 							]
 						}
 					},
@@ -190,7 +190,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"documentTypeId\": \"1\",\n    \"documentNumber\": \"46687136\",\n    \"personTypeId\": \"1\",\n    \"firstname\": \"Enzo\",\n\t\"middlename\": null,\n    \"lastname\": \"Rodriguez\",\n    \"surname\": \"Bravo\",\n    \"socialReason\": null,\n    \"commercialName\": null,\n    \"birthdate\": \"1991-01-25\",\n    \"address\": \"Av. Proceres 123\",\n\t\"phoneNumber\": \"966378451\",\n    \"email\": \"enzorodriguez2@email.com\",\n    \"genderId\": 1,\n    \"departmentId\": 1,\n    \"provinceId\": 1,\n    \"districtId\": 1\n}",
+							"raw": "{\n    \"documentTypeId\": \"1\",\n    \"documentNumber\": \"46687130\",\n    \"personTypeId\": \"1\",\n    \"firstname\": \"Enzo\",\n\t\"middlename\": null,\n    \"lastname\": \"Rodriguez\",\n    \"surname\": \"Bravo\",\n    \"socialReason\": null,\n    \"commercialName\": null,\n    \"birthdate\": \"1991-01-25\",\n    \"address\": \"Av. Proceres 123\",\n\t\"phoneNumber\": \"966378451\",\n    \"email\": \"enzorodriguez4@email.com\",\n    \"genderId\": 1,\n    \"departmentId\": 1,\n    \"provinceId\": 1,\n    \"districtId\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"

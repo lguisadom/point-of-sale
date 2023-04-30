@@ -67,7 +67,7 @@ public class Customer {
 	@Column(nullable = false, length = 255)
 	private String address;
 
-	@Column(name = "phone_number", nullable = true, length = 100)
+	@Column(name = "phone_number", nullable = true, length = 15)
 	private String phoneNumber;
 	
 	@Column(nullable = false, unique = true, length = 100)
@@ -89,7 +89,7 @@ public class Customer {
 	@JoinColumn(name = "district_id", nullable = false, foreignKey = @ForeignKey(name = "FK_CUSTOMER_DISTRICT"))
 	private District district;
 	
-	@Column(name = "registration_date", nullable = false)
+	@Column(name = "registration_date", nullable = false, updatable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date registrationDate;
 	

@@ -4,7 +4,6 @@ import com.cosodi.pos.repository.IGenderRepository;
 import com.cosodi.pos.repository.IGenericRepository;
 import com.cosodi.pos.service.IGenderService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.cosodi.pos.entity.Gender;
 
@@ -15,6 +14,6 @@ public class GenderServiceImpl extends CRUDImpl<Gender, Integer> implements IGen
 
 	@Override
 	protected IGenericRepository<Gender, Integer> getRepository() {
-		return iGenderRepository;
+		return this.iGenderRepository;
 	}
 }

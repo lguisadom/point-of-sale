@@ -146,16 +146,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/api/v1/customer",
+							"raw": "http://localhost:8082/api/v1/customers",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8082",
 							"path": [
 								"api",
 								"v1",
-								"customer"
+								"customers"
 							]
 						}
 					},
@@ -167,17 +167,17 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/api/v1/customer/1",
+							"raw": "http://localhost:8082/api/v1/customers/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8082",
 							"path": [
 								"api",
 								"v1",
-								"customer",
-								"1"
+								"customers",
+								"3"
 							]
 						}
 					},
@@ -190,7 +190,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"documentTypeId\": \"1\",\n    \"documentNumber\": \"46687136\",\n    \"personTypeId\": \"1\",\n    \"firstname\": \"Enzo\",\n\t\"middlename\": \"\",\n    \"lastname\": \"Rodriguez\",\n    \"surname\": \"Bravo\",\n    \"socialReason\": \"\",\n    \"commercialName\": \"\",\n    \"birthdate\": \"1991-01-25\",\n    \"address\": \"Av. Proceres 123\",\n\t\"phoneNumber\": \"966378451\",\n    \"email\": \"enzorodriguez2@email.com\",\n    \"genderId\": 1,\n    \"departmentId\": 1,\n    \"provinceId\": 1,\n    \"districtId\": 1\n}",
+							"raw": "{\n    \"documentTypeId\": \"1\",\n    \"documentNumber\": \"46687136\",\n    \"personTypeId\": \"1\",\n    \"firstname\": \"Enzo\",\n\t\"middlename\": null,\n    \"lastname\": \"Rodriguez\",\n    \"surname\": \"Bravo\",\n    \"socialReason\": null,\n    \"commercialName\": null,\n    \"birthdate\": \"1991-01-25\",\n    \"address\": \"Av. Proceres 123\",\n\t\"phoneNumber\": \"966378451\",\n    \"email\": \"enzorodriguez2@email.com\",\n    \"genderId\": 1,\n    \"departmentId\": 1,\n    \"provinceId\": 1,\n    \"districtId\": 1\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -198,16 +198,127 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/api/v1/customer",
+							"raw": "http://localhost:8082/api/v1/customers",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8082",
 							"path": [
 								"api",
 								"v1",
-								"customer"
+								"customers"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "save 1",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"documentTypeId\": \"1\",\n    \"documentNumber\": \"46687136\",\n    \"personTypeId\": \"1\",\n    \"firstname\": \"Enzo\",\n\t\"middlename\": null,\n    \"lastname\": \"Rodriguez\",\n    \"surname\": \"Bravo\",\n    \"socialReason\": null,\n    \"commercialName\": null,\n    \"birthdate\": \"1991-01-25\",\n    \"address\": \"Av. Proceres 123\",\n\t\"phoneNumber\": \"966378451\",\n    \"email\": \"enzorodriguez2@email.com\",\n    \"genderId\": 1,\n    \"departmentId\": 1,\n    \"provinceId\": 1,\n    \"districtId\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/api/v1/customers",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"v1",
+										"customers"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						},
+						{
+							"name": "save 2",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"documentTypeId\": \"2\",\n    \"documentNumber\": \"20428729201\",\n    \"personTypeId\": \"2\",\n    \"socialReason\": \"CENCOSUD\",\n    \"commercialName\": \"Supermercados Metro\",\n    \"birthdate\": \"1991-01-25\",\n    \"address\": \"Av. Proceres 123\",\n\t\"phoneNumber\": \"966378451\",\n    \"email\": \"cencosud@email.com\",\n    \"genderId\": 1,\n    \"departmentId\": 1,\n    \"provinceId\": 1,\n    \"districtId\": 1\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8082/api/v1/customers",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8082",
+									"path": [
+										"api",
+										"v1",
+										"customers"
+									]
+								}
+							},
+							"_postman_previewlanguage": null,
+							"header": null,
+							"cookie": [],
+							"body": null
+						}
+					]
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/api/v1/customers/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8082/api/v1/customers/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8082",
+							"path": [
+								"api",
+								"v1",
+								"customers",
+								"1"
 							]
 						}
 					},

@@ -3,18 +3,16 @@ package com.cosodi.pos.controller;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.cosodi.pos.repository.IGenderRepository;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.cosodi.pos.dto.GenderDto;
+import com.cosodi.pos.dto.GenderDTO;
 import com.cosodi.pos.entity.Gender;
 import com.cosodi.pos.service.IGenderService;
 
@@ -32,14 +30,15 @@ public class GenderController {
 	private final IGenderService iGenderService;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CustomerController.class);
+
 	@GetMapping
 	public ResponseEntity<?> findAll() {
 		try {
-			List<GenderDto> listGenderDto = iGenderService.findAll()
+			List<GenderDTO> listGenderDTO = iGenderService.findAll()
 					.stream()
 					.map(this::convertToDto)
 					.collect(Collectors.toList());
-			return ResponseEntity.ok(listGenderDto);
+			return ResponseEntity.ok(listGenderDTO);
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage(), e);
 			return ResponseEntity.internalServerError().build();
@@ -49,12 +48,12 @@ public class GenderController {
 	@GetMapping("/{id}")
 	public ResponseEntity<?> findById(@PathVariable("id") Integer id) {
 		Gender gender = iGenderService.findById(id);
-		GenderDto genderDto = this.convertToDto(gender);
-		return ResponseEntity.ok(genderDto);
+		GenderDTO genderDTO = this.convertToDto(gender);
+		return ResponseEntity.ok(genderDTO);
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<?> save(@RequestBody GenderDto genderDto) {
+	public ResponseEntity<?> save(@RequestBody GenderDTO genderDto) {
 		try {
 			Gender gender = this.convertToEntity(genderDto);
 			Gender genderCreated = iGenderService.save(gender);
@@ -64,14 +63,14 @@ public class GenderController {
 			return ResponseEntity.internalServerError().build();
 		}
 	}
-	
+
 	@PutMapping("/{id}")
-	public ResponseEntity<?> update(@PathVariable("id") Integer id, @RequestBody GenderDto genderDto) {
+	public ResponseEntity<?> update(@PathVariable("id") Integer id, @RequestBody GenderDTO genderDto) {
 		Gender gender = this.convertToEntity(genderDto);
 		Gender genderUpdated = iGenderService.update(id, gender);
 		return ResponseEntity.status(HttpStatus.OK).body(this.convertToDto(genderUpdated));
 	}
-	
+
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
 		try {
@@ -83,18 +82,17 @@ public class GenderController {
 		} catch (Exception e) {
 			LOGGER.error(e.getMessage(), e);
 			return ResponseEntity.internalServerError().build();
-		}		
+		}
 	}
-	
-	private GenderDto convertToDto(Gender gender) {
-		 GenderDto genderDto = modelMapper.map(gender, GenderDto.class);
-		 return genderDto;
+
+	private GenderDTO convertToDto(Gender gender) {
+		 return modelMapper.map(gender, GenderDTO.class);
 	}
-	
-	private Gender convertToEntity(GenderDto genderDto) {
-		Gender gender = modelMapper.map(genderDto, Gender.class);
-		if (genderDto.getId() != null) {
-			gender.setId(genderDto.getId());
+
+	private Gender convertToEntity(GenderDTO genderDTO) {
+		Gender gender = modelMapper.map(genderDTO, Gender.class);
+		if (genderDTO.getId() != null) {
+			gender.setId(genderDTO.getId());
 		}
 		
 		return gender;

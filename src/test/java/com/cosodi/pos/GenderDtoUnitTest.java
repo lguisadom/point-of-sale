@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import com.cosodi.pos.dto.GenderDto;
+import com.cosodi.pos.dto.GenderDTO;
 import com.cosodi.pos.entity.Gender;
 
 @SpringBootTest
@@ -19,14 +19,14 @@ public class GenderDtoUnitTest {
 		gender.setId(1);
 		gender.setName("MASCULINO");
 		
-		GenderDto genderDto = modelMapper.map(gender, GenderDto.class);
+		GenderDTO genderDto = modelMapper.map(gender, GenderDTO.class);
 		assertEquals(gender.getId(), genderDto.getId());
 		assertEquals(gender.getName(), genderDto.getName());
 	}
 	
 	@Test
 	public void whenConvertGenderDtoToEntity_thenCorrect() {
-		GenderDto genderDto = new GenderDto();
+		GenderDTO genderDto = new GenderDTO();
 		genderDto.setId(1);
 		genderDto.setName("FEMENINO");
 		

@@ -33,36 +33,40 @@ public class CustomerController {
 	public ResponseEntity<List<CustomerDTO>> findAll() {
 		List<CustomerDTO> customerDTOList = this.iCustomerService.findAll()
 				.stream()
-				.map(customer -> this.modelMapper.map(customer, CustomerDTO.class))
+				.map(this::convertToDTO)
 				.collect(Collectors.toList());
 		return new ResponseEntity<>(customerDTOList, HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<CustomerDTO> findById(@PathVariable("id") Long id) {
-		Customer customer = this.iCustomerService.findById(id);
-		CustomerDTO customerDTO = this.modelMapper.map(customer, CustomerDTO.class);
-		return new ResponseEntity<>(customerDTO, HttpStatus.OK);
+		return new ResponseEntity<>(this.convertToDTO(this.iCustomerService.findById(id)), HttpStatus.OK);
 	}
 	
 	@PostMapping
 	public ResponseEntity<CustomerDTO> save(@Valid @RequestBody CustomerDTO customerDTO) {
-		Customer customer = this.modelMapper.map(customerDTO, Customer.class);
-		Customer createdCustomer = this.iCustomerService.save(customer);
-		return new ResponseEntity<>(this.modelMapper.map(createdCustomer, CustomerDTO.class), HttpStatus.CREATED);
+		return new ResponseEntity<>(this.convertToDTO(
+				this.iCustomerService.save(this.convertToEntity(customerDTO))), HttpStatus.CREATED);
 	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<CustomerDTO> update(@PathVariable("id") Long id, @Valid @RequestBody CustomerDTO customerDTO) {
 		customerDTO.setId(id);
-		Customer customer = this.modelMapper.map(customerDTO, Customer.class);
-		Customer updatedCustomer = this.iCustomerService.update(customer, id);
-		return new ResponseEntity<>(this.modelMapper.map(updatedCustomer, CustomerDTO.class), HttpStatus.OK);
+		return new ResponseEntity<>(this.convertToDTO(
+				this.iCustomerService.update(this.convertToEntity(customerDTO), id)), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> deleteById(@PathVariable("id") Long id) {
 		this.iCustomerService.deleteById(id);
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
+
+	private Customer convertToEntity(CustomerDTO customerDTO) {
+		return this.modelMapper.map(customerDTO, Customer.class);
+	}
+
+	private CustomerDTO convertToDTO(Customer customer) {
+		return this.modelMapper.map(customer, CustomerDTO.class);
 	}
 }

@@ -62,7 +62,7 @@ public class GenderController {
 	}
 
 	@PostMapping
-	public ResponseEntity<GenderDTO> save(@RequestBody GenderDTO genderDTO) {
+	public ResponseEntity<Void> save(@RequestBody GenderDTO genderDTO) {
 			Gender createdGender = iGenderService.save(this.convertToEntity(genderDTO));
 			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdGender.getId()).toUri();
 			return ResponseEntity.created(location).build();
@@ -78,7 +78,7 @@ public class GenderController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
+	public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
 		iGenderService.deleteById(id);
 		// return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);

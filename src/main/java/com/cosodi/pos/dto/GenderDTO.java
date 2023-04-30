@@ -16,7 +16,7 @@ public class GenderDTO {
 	@EqualsAndHashCode.Include
 	private Integer id;
 
-	@NotEmpty(message = "Nombre no debe estar vacío")
-	@Size(max = 100)
+	@NotEmpty(message = "{name.notEmpty}")
+	@Size(max = 100, message = "{name.size}")
 	private String name;
 }

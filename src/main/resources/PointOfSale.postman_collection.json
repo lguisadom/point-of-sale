@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "285387ca-b078-4786-8dab-2f1ea03f18ae",
+		"_postman_id": "fd12908b-a4c6-4072-8353-0ff307cb3a1c",
 		"name": "PointOfSale",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "6041738"
@@ -15,16 +15,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/api/v1/gender",
+							"raw": "http://localhost:8082/api/v1/genders",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8082",
 							"path": [
 								"api",
 								"v1",
-								"gender"
+								"genders"
 							]
 						}
 					},
@@ -36,16 +36,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/api/v1/gender/3",
+							"raw": "http://localhost:8082/api/v1/genders/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8082",
 							"path": [
 								"api",
 								"v1",
-								"gender",
+								"genders",
 								"3"
 							]
 						}
@@ -67,16 +67,16 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/api/v1/gender",
+							"raw": "http://localhost:8082/api/v1/genders",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8082",
 							"path": [
 								"api",
 								"v1",
-								"gender"
+								"genders"
 							]
 						}
 					},
@@ -88,16 +88,16 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/api/v1/gender/3",
+							"raw": "http://localhost:8082/api/v1/genders/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8082",
 							"path": [
 								"api",
 								"v1",
-								"gender",
+								"genders",
 								"3"
 							]
 						}
@@ -119,16 +119,16 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/api/v1/gender/3",
+							"raw": "http://localhost:8082/api/v1/genders/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8082",
 							"path": [
 								"api",
 								"v1",
-								"gender",
+								"genders",
 								"3"
 							]
 						}

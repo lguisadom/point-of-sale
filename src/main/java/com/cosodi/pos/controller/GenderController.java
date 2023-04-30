@@ -1,5 +1,6 @@
 package com.cosodi.pos.controller;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,6 +18,7 @@ import com.cosodi.pos.entity.Gender;
 import com.cosodi.pos.service.IGenderService;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/api/v1/genders")
@@ -31,7 +33,7 @@ public class GenderController {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CustomerController.class);
 
-	@GetMapping
+	/*@GetMapping
 	public ResponseEntity<?> findAll() {
 		try {
 			List<GenderDTO> listGenderDTO = iGenderService.findAll()
@@ -43,46 +45,43 @@ public class GenderController {
 			LOGGER.error(e.getMessage(), e);
 			return ResponseEntity.internalServerError().build();
 		}
+	}*/
+	@GetMapping
+	public ResponseEntity<List<GenderDTO>> findAll() {
+		List<GenderDTO> patientDtoList = iGenderService.findAll()
+				.stream()
+				.map(this::convertToDto)
+				.collect(Collectors.toList());
+		// return ResponseEntity.ok(listGenderDTO);
+		return new ResponseEntity<>(patientDtoList, HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<?> findById(@PathVariable("id") Integer id) {
-		Gender gender = iGenderService.findById(id);
-		GenderDTO genderDTO = this.convertToDto(gender);
-		return ResponseEntity.ok(genderDTO);
+	public ResponseEntity<GenderDTO> findById(@PathVariable("id") Integer id) {
+		return new ResponseEntity<>(this.convertToDto(iGenderService.findById(id)), HttpStatus.OK);
 	}
 
 	@PostMapping
-	public ResponseEntity<?> save(@RequestBody GenderDTO genderDto) {
-		try {
-			Gender gender = this.convertToEntity(genderDto);
-			Gender genderCreated = iGenderService.save(gender);
-			return ResponseEntity.status(HttpStatus.CREATED).body(this.convertToDto(genderCreated));
-		} catch (Exception e) {
-			LOGGER.error(e.getMessage(), e);
-			return ResponseEntity.internalServerError().build();
-		}
+	public ResponseEntity<GenderDTO> save(@RequestBody GenderDTO genderDTO) {
+			Gender createdGender = iGenderService.save(this.convertToEntity(genderDTO));
+			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdGender.getId()).toUri();
+			return ResponseEntity.created(location).build();
+			// return ResponseEntity.status(HttpStatus.CREATED).body(this.convertToDto(createdGender));
 	}
 
 	@PutMapping("/{id}")
-	public ResponseEntity<?> update(@PathVariable("id") Integer id, @RequestBody GenderDTO genderDto) {
-		Gender gender = this.convertToEntity(genderDto);
-		Gender genderUpdated = iGenderService.update(id, gender);
-		return ResponseEntity.status(HttpStatus.OK).body(this.convertToDto(genderUpdated));
+	public ResponseEntity<GenderDTO> update(@PathVariable("id") Integer id, @RequestBody GenderDTO genderDTO) {
+		genderDTO.setId(id);
+		Gender updatedGender = iGenderService.update(this.convertToEntity(genderDTO), id);
+		// return ResponseEntity.status(HttpStatus.OK).body(this.convertToDto(updatedGender));
+		return new ResponseEntity<>(this.convertToDto(updatedGender), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
 	public ResponseEntity<?> delete(@PathVariable("id") Integer id) {
-		try {
-			iGenderService.deleteById(id);
-			return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
-		} catch (EntityNotFoundException e) {
-			LOGGER.error(e.getMessage(), e);
-			return ResponseEntity.notFound().build();
-		} catch (Exception e) {
-			LOGGER.error(e.getMessage(), e);
-			return ResponseEntity.internalServerError().build();
-		}
+		iGenderService.deleteById(id);
+		// return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
 	private GenderDTO convertToDto(Gender gender) {
@@ -90,11 +89,6 @@ public class GenderController {
 	}
 
 	private Gender convertToEntity(GenderDTO genderDTO) {
-		Gender gender = modelMapper.map(genderDTO, Gender.class);
-		if (genderDTO.getId() != null) {
-			gender.setId(genderDTO.getId());
-		}
-		
-		return gender;
+		return modelMapper.map(genderDTO, Gender.class);
 	}
 }

@@ -17,7 +17,7 @@ public abstract class CRUDImpl<T, ID> implements ICRUDService<T, ID> {
 
     @Override
     public T findById(ID id) {
-        return this.getRepository().findById(id).orElse(null);
+        return this.getRepository().findById(id).orElseThrow(() -> new ModelNotFoundException("ID NOT FOUND: " + id));
     }
 
     @Override
@@ -26,14 +26,14 @@ public abstract class CRUDImpl<T, ID> implements ICRUDService<T, ID> {
     }
 
     @Override
-    public T update(ID id, T t) {
-        this.getRepository().findById(id).orElseThrow(() -> new ModelNotFoundException("ID NOT FOUND " + id));
+    public T update(T t, ID id) {
+        this.getRepository().findById(id).orElseThrow(() -> new ModelNotFoundException("ID NOT FOUND: " + id));
         return this.getRepository().save(t);
     }
 
     @Override
     public void deleteById(ID id) {
-        this.getRepository().findById(id).orElseThrow(() -> new ModelNotFoundException("ID NOT FOUND " + id));
+        this.getRepository().findById(id).orElseThrow(() -> new ModelNotFoundException("ID NOT FOUND: " + id));
         this.getRepository().deleteById(id);
     }
 }

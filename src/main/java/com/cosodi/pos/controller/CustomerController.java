@@ -24,6 +24,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RequestMapping("/api/v1/customers")
 @RequiredArgsConstructor
 public class CustomerController {
+
 	private final ICustomerService iCustomerService;
 
 	@Qualifier("defaultMapper")
@@ -46,7 +47,7 @@ public class CustomerController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<CustomerDTO> save(@Valid @RequestBody CustomerDTO customerDTO) {
+	public ResponseEntity<Void> save(@Valid @RequestBody CustomerDTO customerDTO) {
 		Customer createdCustomer = this.iCustomerService.save(this.convertToEntity(customerDTO));
 		URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdCustomer.getId()).toUri();
 		return ResponseEntity.created(location).build();

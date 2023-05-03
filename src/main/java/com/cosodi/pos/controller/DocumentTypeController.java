@@ -41,7 +41,7 @@ public class DocumentTypeController {
     }
 
     @PostMapping
-    public ResponseEntity<DocumentTypeDTO> save(@Valid @RequestBody DocumentTypeDTO documentTypeDTO) {
+    public ResponseEntity<Void> save(@Valid @RequestBody DocumentTypeDTO documentTypeDTO) {
         DocumentType createdDocumentType = this.iDocumentTypeService.save(this.convertToEntity(documentTypeDTO));
         URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdDocumentType.getId()).toUri();
         return ResponseEntity.created(location).build();

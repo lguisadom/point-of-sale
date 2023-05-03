@@ -39,7 +39,7 @@ public class GenderController {
 		try {
 			List<GenderDTO> listGenderDTO = iGenderService.findAll()
 					.stream()
-					.map(this::convertToDto)
+					.map(this::convertToDTO)
 					.collect(Collectors.toList());
 			return ResponseEntity.ok(listGenderDTO);
 		} catch (Exception e) {
@@ -49,17 +49,17 @@ public class GenderController {
 	}*/
 	@GetMapping
 	public ResponseEntity<List<GenderDTO>> findAll() {
-		List<GenderDTO> patientDtoList = iGenderService.findAll()
+		List<GenderDTO> patientDTOList = iGenderService.findAll()
 				.stream()
-				.map(this::convertToDto)
+				.map(this::convertToDTO)
 				.collect(Collectors.toList());
 		// return ResponseEntity.ok(listGenderDTO);
-		return new ResponseEntity<>(patientDtoList, HttpStatus.OK);
+		return new ResponseEntity<>(patientDTOList, HttpStatus.OK);
 	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<GenderDTO> findById(@PathVariable("id") Integer id) {
-		return new ResponseEntity<>(this.convertToDto(iGenderService.findById(id)), HttpStatus.OK);
+		return new ResponseEntity<>(this.convertToDTO(iGenderService.findById(id)), HttpStatus.OK);
 	}
 
 	@PostMapping
@@ -67,15 +67,15 @@ public class GenderController {
 			Gender createdGender = iGenderService.save(this.convertToEntity(genderDTO));
 			URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(createdGender.getId()).toUri();
 			return ResponseEntity.created(location).build();
-			// return ResponseEntity.status(HttpStatus.CREATED).body(this.convertToDto(createdGender));
+			// return ResponseEntity.status(HttpStatus.CREATED).body(this.convertToDTO(createdGender));
 	}
 
 	@PutMapping("/{id}")
 	public ResponseEntity<GenderDTO> update(@PathVariable("id") Integer id, @Valid @RequestBody GenderDTO genderDTO) {
 		genderDTO.setId(id);
 		Gender updatedGender = iGenderService.update(this.convertToEntity(genderDTO), id);
-		// return ResponseEntity.status(HttpStatus.OK).body(this.convertToDto(updatedGender));
-		return new ResponseEntity<>(this.convertToDto(updatedGender), HttpStatus.OK);
+		// return ResponseEntity.status(HttpStatus.OK).body(this.convertToDTO(updatedGender));
+		return new ResponseEntity<>(this.convertToDTO(updatedGender), HttpStatus.OK);
 	}
 
 	@DeleteMapping("/{id}")
@@ -85,7 +85,7 @@ public class GenderController {
 		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 
-	private GenderDTO convertToDto(Gender gender) {
+	private GenderDTO convertToDTO(Gender gender) {
 		 return modelMapper.map(gender, GenderDTO.class);
 	}
 

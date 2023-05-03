@@ -23,6 +23,6 @@ public class Province {
 	@EqualsAndHashCode.Include
 	private Long id;
 	
-	@Column(unique = true, nullable = false)
+	@Column(unique = true, nullable = false, length = 100)
 	private String description;
 }

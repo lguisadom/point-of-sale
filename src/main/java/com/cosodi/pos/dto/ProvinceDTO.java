@@ -1,6 +1,6 @@
 package com.cosodi.pos.dto;
 
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,11 +11,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class GenderDTO {
-	@EqualsAndHashCode.Include
-	private Integer id;
+public class ProvinceDTO {
+    @EqualsAndHashCode.Include
+    private Long id;
 
-	@NotEmpty(message = "{name.notEmpty}")
-	@Size(max = 100, message = "{name.size}")
-	private String name;
+    @NotBlank(message = "{province.description.notBlank}")
+    @Size(min = 3, max = 100, message = "{province.description.size}")
+    private String description;
 }

@@ -23,10 +23,10 @@ public class PersonType {
 	@EqualsAndHashCode.Include
 	private Integer id;
 	
-	@Column(unique = true, nullable = false)
+	@Column(unique = true, nullable = false, length = 100)
 	private String description;
 	
-	@Column(name = "short_description", unique = true, nullable = false)
+	@Column(name = "short_description", unique = true, nullable = false, length = 30)
 	private String shortDescription;
 	
 //	@OneToMany(fetch = FetchType.LAZY, mappedBy = "personType")

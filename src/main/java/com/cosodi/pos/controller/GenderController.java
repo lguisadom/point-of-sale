@@ -27,10 +27,10 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 @RequiredArgsConstructor
 public class GenderController {
 
+	private final IGenderService iGenderService;
+
 	@Qualifier("defaultMapper")
 	private final ModelMapper modelMapper;
-
-	private final IGenderService iGenderService;
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(CustomerController.class);
 

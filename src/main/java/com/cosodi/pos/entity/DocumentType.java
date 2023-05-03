@@ -23,10 +23,10 @@ public class DocumentType {
 	@EqualsAndHashCode.Include
 	private Integer id;
 
-	@Column(name = "description", unique = true, nullable = false)
+	@Column(name = "description", unique = true, nullable = false, length = 100)
 	private String description;
 	
-	@Column(name = "short_description", nullable = false)
+	@Column(name = "short_description", nullable = false, length = 30)
 	private String shortDescription;
 	
 //	@OneToMany(fetch = FetchType.LAZY, mappedBy = "documentType")

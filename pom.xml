@@ -65,6 +65,12 @@
 			<version>2.1.0</version>
 		</dependency>
 
+		<!-- HATEOAS: Level 3 Richardson -->
+		<dependency>
+			<groupId>org.springframework.hateoas</groupId>
+			<artifactId>spring-hateoas</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>

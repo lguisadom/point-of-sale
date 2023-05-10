@@ -18,7 +18,7 @@ public class Category {
 	@EqualsAndHashCode.Include
 	private Long id;
 
-	@Column(name = "name", unique = true)
+	@Column(name = "name", nullable = false, length = 100, unique = true)
 	private String name;
 
 	@Column(name = "description", length = 255)

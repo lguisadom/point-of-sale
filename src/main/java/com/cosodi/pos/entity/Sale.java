@@ -1,7 +1,9 @@
 package com.cosodi.pos.entity;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -23,7 +25,7 @@ public class Sale {
 
 	@Column(name = "sale_date", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date saleDate;
+	private LocalDateTime saleDate;
 
 	@ManyToOne
 	@JoinColumn(name = "voucher_type_id", nullable = false, foreignKey = @ForeignKey(name = "FK_SALE_VOUCHER_TYPE"))
@@ -46,8 +48,11 @@ public class Sale {
 	@JoinColumn(name = "customer_id", nullable = false, foreignKey = @ForeignKey(name = "FK_SALE_CUSTOMER"))
 	private Customer customer;
 
+	@OneToMany(mappedBy = "sale", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<SaleDetail> details;
+
 	@PrePersist
-	public void assignRegistrationDate() {
-		this.saleDate = new Date();
+	public void assignSaleDate() {
+		this.saleDate = LocalDateTime.now();
 	}
 }

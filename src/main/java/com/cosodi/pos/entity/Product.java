@@ -1,6 +1,7 @@
 package com.cosodi.pos.entity;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import jakarta.persistence.*;
@@ -43,7 +44,7 @@ public class Product {
 	private Integer maxStock;
 
 	@Column(name = "registration_date", nullable = false)
-	private Date registrationDate;
+	private LocalDateTime registrationDate;
 
 	@ManyToOne
 	@JoinColumn(name = "provider_id", nullable = false, foreignKey = @ForeignKey(name = "FK_PRODUCT_PROVIDER"))
@@ -55,6 +56,6 @@ public class Product {
 	
 	@PrePersist
 	public void assignRegistrationDate() {
-		this.registrationDate = new Date();
+		this.registrationDate = LocalDateTime.now();
 	}
 }

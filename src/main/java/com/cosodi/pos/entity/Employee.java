@@ -1,6 +1,7 @@
 package com.cosodi.pos.entity;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -34,7 +35,7 @@ public class Employee {
 	@Column(nullable = false, length = 50)
 	private String firstname;
 
-	@Column(nullable = false, length = 50)
+	@Column(nullable = true, length = 50)
 	private String middlename;
 
 	@Column(nullable = false, length = 50)
@@ -46,12 +47,12 @@ public class Employee {
 	@Column(nullable = false, unique = true, length = 100)
 	private String email;
 
-	@Column(name = "phone_number", nullable = true, length = 100)
+	@Column(name = "phone_number", nullable = true, length = 15)
 	private String phoneNumber;
 
 	@Column(name = "hiring_date", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date hiringDate;
+	private LocalDateTime hiringDate;
 
 	@ManyToOne
 	@JoinColumn(name = "gender_id", nullable = false, foreignKey = @ForeignKey(name = "FK_EMPLOYEE_GENDER"))
@@ -59,7 +60,7 @@ public class Employee {
 
 	@Column(name="birth_date", nullable = true)
 	@Temporal(TemporalType.DATE)
-	private Date birthdate;
+	private LocalDate birthdate;
 
 	@ManyToOne
 	@JoinColumn(name = "job_position", nullable = false, foreignKey = @ForeignKey(name = "FK_EMPLOYEE_JOB_POSITION"))
@@ -67,7 +68,8 @@ public class Employee {
 
 	@Column(name = "registration_date", nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date registrationDate;
+	private LocalDateTime registrationDate;
+
 	@ManyToOne
 	@JoinColumn(name = "department_id", nullable = false, foreignKey = @ForeignKey(name = "FK_EMPLOYEE_DEPARTMENT"))
 	private Department department;
@@ -82,6 +84,6 @@ public class Employee {
 	
 	@PrePersist
 	public void assignRegistrationDate() {
-		this.registrationDate = new Date();
+		this.registrationDate = LocalDateTime.now();
 	}
 }

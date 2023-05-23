@@ -1,5 +1,6 @@
 package com.cosodi.pos.entity;
 
+import com.cosodi.pos.util.RoleName;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,8 +20,14 @@ public class Role {
     private Integer id;
 
     @Column(nullable = false, length = 50)
-    private String name;
+    @Enumerated(EnumType.STRING)
+    private RoleName name;
 
     @Column(nullable = false, length = 100)
     private String description;
+
+    public Role(RoleName name, String description) {
+        this.name = name;
+        this.description = description;
+    }
 }

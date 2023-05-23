@@ -37,4 +37,11 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false,
                     foreignKey = @ForeignKey(name = "FK_USER_ROLES_ROLES")))
     private List<Role> roles;
+
+    public User(String username, String password, boolean enabled, List<Role> roles) {
+        this.username = username;
+        this.password = password;
+        this.enabled = enabled;
+        this.roles = roles;
+    }
 }

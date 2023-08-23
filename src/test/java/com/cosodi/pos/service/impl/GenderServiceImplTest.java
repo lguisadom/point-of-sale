@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @SpringBootTest
-public class IGenderServiceImplTest {
+public class GenderServiceImplTest {
     @Mock
     private IGenderRepository iGenderRepository;
 
@@ -93,33 +93,34 @@ public class IGenderServiceImplTest {
     public void testUpdate() {
         Integer id = 1;
         Gender genderToUpdate = new Gender(id, "FEMENINO");
-        Gender updatedGender = new Gender(id, "FEMENINO");
+        Gender updatedGender = new Gender(id, "FEMENINO2");
 
         Mockito.when(iGenderRepository.findById(id)).thenReturn(Optional.of(genderToUpdate));
-        Mockito.when(iGenderRepository.save(genderToUpdate)).thenReturn(updatedGender);
+        Mockito.when(iGenderRepository.save(updatedGender)).thenReturn(updatedGender);
 
-        Gender genderResult = iGenderService.update(genderToUpdate, id);
+        Gender genderResult = iGenderService.update(updatedGender, id);
 
-        Assertions.assertEquals(updatedGender, genderResult);
+        Assertions.assertEquals(genderResult, updatedGender);
         Mockito.verify(iGenderRepository, Mockito.times(1)).findById(id);
-        Mockito.verify(iGenderRepository, Mockito.times(1)).save(genderToUpdate);
+        Mockito.verify(iGenderRepository, Mockito.times(1)).save(updatedGender);
     }
 
     @Test
     public void testUpdate_NotFound() {
         Integer id = 1;
-        Gender genderToUpdate = new Gender(id, "FEMENINO");
+        Gender updatedGender = new Gender(id, "FEMENINO");
 
         Mockito.when(iGenderRepository.findById(id)).thenReturn(Optional.empty());
 
         ModelNotFoundException exception = Assertions.assertThrows(ModelNotFoundException.class, () -> {
-            iGenderService.update(genderToUpdate, id);
+            iGenderService.update(updatedGender, id);
         });
 
         String expectedMessage = "ID NOT FOUND: " + id;
         String actualMessage = exception.getMessage();
         Assertions.assertEquals(expectedMessage, actualMessage);
         Mockito.verify(iGenderRepository, Mockito.times(1)).findById(id);
+        Mockito.verify(iGenderRepository, Mockito.times(0)).save(updatedGender);
     }
 
     @Test

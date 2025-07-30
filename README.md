@@ -138,6 +138,7 @@ Access the interactive documentation at: **http://localhost:8082/swagger-ui.html
 | `/api/v1/document-types` | Document types | GET, POST, PUT, DELETE | ✅ Required |
 | `/api/v1/person-types` | Person types | GET, POST, PUT, DELETE | ✅ Required |
 | `/api/v1/genders` | Genders | GET, POST, PUT, DELETE | ✅ Required |
+| `/api/v1/auth/register` | User registration | POST | ❌ Public |
 
 ### Authentication
 
@@ -155,6 +156,17 @@ The system uses **Basic Authentication** with the following users created automa
 ```bash
 # Public endpoint (no authentication required)
 curl http://localhost:8082/api/v1/public/health
+
+# User registration (no authentication required)
+curl -X POST http://localhost:8082/api/v1/auth/register \
+  -H "Content-Type: application/json" \
+  -d '{
+    "username": "newuser",
+    "password": "password123",
+    "email": "newuser@example.com",
+    "firstName": "New",
+    "lastName": "User"
+  }'
 
 # Protected endpoint (authentication required)
 curl -u admin:admin123 http://localhost:8082/api/v1/customers

@@ -32,9 +32,9 @@ public class Runner implements CommandLineRunner {
 
         if (this.iUserRepository.count() == 0) {
             this.iUserRepository.saveAll(List.of(
-                    new User("admin", passwordEncoder.encode("admin123"), true, List.of(iRoleRepository.findByName(RoleName.ADMIN).get())),
-                    new User("user01", passwordEncoder.encode("user01123"), true, List.of(iRoleRepository.findByName(RoleName.READ).get())),
-                    new User("user02", passwordEncoder.encode("user02123"), true, List.of(iRoleRepository.findByName(RoleName.WRITE).get()))
+                    new User("admin", "admin@pos.com", passwordEncoder.encode("admin123"), "Admin", "User", true, List.of(iRoleRepository.findByName(RoleName.ADMIN).get())),
+                    new User("user01", "user01@pos.com", passwordEncoder.encode("user01123"), "User", "One", true, List.of(iRoleRepository.findByName(RoleName.READ).get())),
+                    new User("user02", "user02@pos.com", passwordEncoder.encode("user02123"), "User", "Two", true, List.of(iRoleRepository.findByName(RoleName.WRITE).get()))
             ));
         }
     }

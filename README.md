@@ -126,16 +126,45 @@ Access the interactive documentation at: **http://localhost:8082/swagger-ui.html
 
 ### Main Endpoints
 
-| Endpoint | Description | Methods |
-|----------|-------------|---------|
-| `/api/v1/customers` | Customer management | GET, POST, PUT, DELETE |
-| `/api/v1/sales` | Sales creation | POST |
-| `/api/v1/departments` | Department management | GET, POST, PUT, DELETE |
-| `/api/v1/provinces` | Province management | GET, POST, PUT, DELETE |
-| `/api/v1/districts` | District management | GET, POST, PUT, DELETE |
-| `/api/v1/document-types` | Document types | GET, POST, PUT, DELETE |
-| `/api/v1/person-types` | Person types | GET, POST, PUT, DELETE |
-| `/api/v1/genders` | Genders | GET, POST, PUT, DELETE |
+| Endpoint | Description | Methods | Authentication |
+|----------|-------------|---------|----------------|
+| `/api/v1/public/health` | Health check | GET | ❌ Public |
+| `/api/v1/public/info` | System information | GET | ❌ Public |
+| `/api/v1/customers` | Customer management | GET, POST, PUT, DELETE | ✅ Required |
+| `/api/v1/sales` | Sales creation | POST | ✅ Required |
+| `/api/v1/departments` | Department management | GET, POST, PUT, DELETE | ✅ Required |
+| `/api/v1/provinces` | Province management | GET, POST, PUT, DELETE | ✅ Required |
+| `/api/v1/districts` | District management | GET, POST, PUT, DELETE | ✅ Required |
+| `/api/v1/document-types` | Document types | GET, POST, PUT, DELETE | ✅ Required |
+| `/api/v1/person-types` | Person types | GET, POST, PUT, DELETE | ✅ Required |
+| `/api/v1/genders` | Genders | GET, POST, PUT, DELETE | ✅ Required |
+
+### Authentication
+
+The system uses **Basic Authentication** with the following users created automatically:
+
+| Username | Password | Role | Description |
+|----------|----------|------|-------------|
+| `admin` | `admin123` | ADMIN | Full access to all endpoints |
+| `user01` | `user01123` | READ | Read-only access |
+| `user02` | `user02123` | WRITE | Read and write access |
+
+#### Using Basic Authentication
+
+**With cURL:**
+```bash
+# Public endpoint (no authentication required)
+curl http://localhost:8082/api/v1/public/health
+
+# Protected endpoint (authentication required)
+curl -u admin:admin123 http://localhost:8082/api/v1/customers
+```
+
+**With Postman:**
+1. Go to the **Authorization** tab
+2. Select **Basic Auth** from the Type dropdown
+3. Enter username and password
+4. Send the request
 
 ### Postman Usage Example
 Import the Postman collection located at: `src/main/resources/PointOfSale.postman_collection.json`
@@ -192,7 +221,7 @@ Custom validation messages for each entity.
 
 - **Java Version**: Updated to Java 21 for better performance and latest features
 - **Spring Boot**: Updated to 3.2.0 for full Java 21 compatibility
-- **Security**: Basic Spring Security configuration is present but commented out
+- **Security**: Basic Authentication implemented with database users
 - **JWT**: Mentioned in code but not completely implemented
 - **Tests**: More tests are needed to cover all functionality
 - **Documentation**: API is documented with Swagger/OpenAPI

@@ -6,7 +6,7 @@ import com.cosodi.pos.repository.IRoleRepository;
 import com.cosodi.pos.repository.IUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -17,6 +17,7 @@ public class Runner implements CommandLineRunner {
 
     private final IUserRepository iUserRepository;
     private final IRoleRepository iRoleRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public void run(String... args) throws Exception {
@@ -31,9 +32,9 @@ public class Runner implements CommandLineRunner {
 
         if (this.iUserRepository.count() == 0) {
             this.iUserRepository.saveAll(List.of(
-                    new User("admin", new BCryptPasswordEncoder().encode("admin123"), true, List.of(iRoleRepository.findByName(RoleName.ADMIN).get())),
-                    new User("user01", "user01123", true, List.of(iRoleRepository.findByName(RoleName.READ).get())),
-                    new User("user02", "user02123", true, List.of(iRoleRepository.findByName(RoleName.WRITE).get()))
+                    new User("admin", passwordEncoder.encode("admin123"), true, List.of(iRoleRepository.findByName(RoleName.ADMIN).get())),
+                    new User("user01", passwordEncoder.encode("user01123"), true, List.of(iRoleRepository.findByName(RoleName.READ).get())),
+                    new User("user02", passwordEncoder.encode("user02123"), true, List.of(iRoleRepository.findByName(RoleName.WRITE).get()))
             ));
         }
     }
